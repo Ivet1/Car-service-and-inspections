@@ -1,6 +1,6 @@
 # Vehicle Inspection & Technical Control System (GTP Manager)
 
-An advanced C# Windows Forms application designed to automate Vehicle Inspection Stations (ГТП). The project features a highly organized single-project structure where domain logic, architectural interfaces, state commands, and data services are fully integrated alongside the graphical user interface.
+A C# Windows Forms application designed to automate Vehicle Inspection Stations. The project features a highly organized single-project structure where domain logic, architectural interfaces, state commands, and data services are fully integrated alongside the graphical user interface.
 
 The system leverages advanced Object-Oriented Programming (OOP) principles, structural polymorphism, the **Command Design Pattern** for bidirectional state navigation (Undo/Redo), and manual **LINQ to XML** serialization for relational data persistence.
 
@@ -10,7 +10,7 @@ The system leverages advanced Object-Oriented Programming (OOP) principles, stru
 
 ### 1. Polymorphic Domain Model Hierarchy (`Models/`)
 The core application manages vehicles and logs using a clean object-oriented inheritance structure located inside the `Models` directory:
-* **`Vehicle` (Base Class):** The main abstract/base class capturing generic attributes: `Make` (Марка), `Model` (Модел), `Registration Number` (Рег. номер), and `Base Repair Cost` (Основна цена за труд).
+* **`Vehicle` (Base Class):** The main abstract/base class capturing generic attributes: `Brand`, `Model`, `Registration Number`, and `Base Repair Cost`(labor).
 * **`Car`:** Extends `Vehicle` with dynamic fuel type configurations (`Gasoline` / `Diesel`).
 * **`Truck`:** Extends `Vehicle` with load capacity metrics (`Load Capacity` in tons).
 * **`Motorcycle`:** Extends `Vehicle` with cubic capacity (`Engine Displacement` in cc) and a specialized `Is Two-Stroke` structural boolean layout.
@@ -30,7 +30,7 @@ To eliminate dirty state tracking inside the UI forms, all destructive and creat
 
 ### 4. Technical Inspection & Safety Validation Logic
 Selecting a vehicle from the primary dashboard and triggering the **Open Inspections Panel** launches a context-aware secondary dialog environment. This form evaluates critical safety attributes under realistic compliance rules:
-* **Mandatory Safety Diagnostics:** Structural checkboxes verifying `Lights Checked` (Светлини) and `Tires Checked` (Гуми).
+* **Mandatory Safety Diagnostics:** Structural checkboxes verifying 'Lights Checked' and 'Tires Checked'.
 * **Efficiency Matrix Computations:** Validates numerical tolerances for `Brake Efficiency (%)` and `Parking Brake Efficiency (%)`.
 * **Conditional LPG Safety Pipeline:** Toggling the `LPG Checkbox` dynamically exposes an additional `Gas Leak Test Passed` validation requirement.
 * **The Validation Guardrail:** An inspection can **only** be added if all mandatory checkboxes are marked `true`, braking thresholds are met, and the conditional gas leak test is satisfied.
@@ -58,5 +58,5 @@ The data management pipeline avoids high reflection costs by parsing data elemen
 3. **Validation Test Run:**
    * Select a vehicle class from the dropdown menu (e.g., *Truck*), fill out its specific properties (*Load Capacity*), and tap **Add Vehicle**.
    * Run an **Undo** cycle to observe it disappearing from the database grid view, followed by an execution to restore it.
-   * Highlight the vehicle, press **Open Inspections**, and simulate an inspection session by tweaking the brake percentage sliders or toggling the LPG checkbox to verify the conditional validation guardrails.
+   * Highlight the vehicle, press **Open Inspections**, and simulate an inspection session by entering values into the brake percentage textboxes (minimum **50%** for service brakes and **16%** for the parking brake) to verify the conditional validation guardrails.
    * Save the operational state layer into a local file container via the **Save XML** dialog and recall it using **Load XML**.
